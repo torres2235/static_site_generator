@@ -49,8 +49,9 @@ def split_nodes_image(old_nodes: list[TextNode]) -> list[TextNode]:
             if split_section[0] != "":
                 split_nodes.append(TextNode(split_section[0], TextType.TEXT))
             split_nodes.append(TextNode(image[0], TextType.IMAGE, image[1]))
-            if len(split_section) > 1:
-                section = split_section[1]
+            section = split_section[1]
+        if section != "":
+            split_nodes.append(TextNode(section, TextType.TEXT))
         new_nodes.extend(split_nodes)
     return new_nodes
 
@@ -65,14 +66,15 @@ def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
         split_nodes = []
         section = old_node.text
         for link in links:
-            split_section = section.split(f"![{link[0]}]({link[1]})", 1)
+            split_section = section.split(f"[{link[0]}]({link[1]})", 1)
             if len(split_section) != 2:
                 raise ValueError("invalid markdown, image section not closed")
             if split_section[0] != "":
                 split_nodes.append(TextNode(split_section[0], TextType.TEXT))
             split_nodes.append(TextNode(link[0], TextType.LINK, link[1]))
-            if len(split_section) > 1:
-                section = split_section[1]
+            section = split_section[1]
+        if section != "":
+            split_nodes.append(TextNode(section, TextType.TEXT))
         new_nodes.extend(split_nodes)
     return new_nodes
 
