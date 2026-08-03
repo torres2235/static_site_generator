@@ -80,7 +80,7 @@ This is the same paragraph on a new line
         )
 
     def test_block_type_code(self):
-        block="```\nThis section here should be block type code```"
+        block="```\nThis section here should be block type code\n```"
 
         block_type = block_to_block_type(block)
 
