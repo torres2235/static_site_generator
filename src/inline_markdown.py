@@ -24,6 +24,7 @@ def split_nodes_delimiter(
         new_nodes.extend(split_nodes)
     return new_nodes
 
+#--------------------- Helper Functions ---------------------------------
 def extract_markdown_images(text : str) -> list([tuple[str,str]]):
     image = re.findall(r"!\[([^\[\]]*)\]\(([^\(\)]*)\)", text)
     return image
@@ -31,7 +32,7 @@ def extract_markdown_images(text : str) -> list([tuple[str,str]]):
 def extract_markdown_links(text : str) -> list([tuple[str,str]]):
     link = re.findall(r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)", text)
     return link
-
+#------------------------------------------------------------------------
 
 def split_nodes_image(old_nodes: list[TextNode]) -> list[TextNode]:
     new_nodes = []
@@ -55,7 +56,6 @@ def split_nodes_image(old_nodes: list[TextNode]) -> list[TextNode]:
         new_nodes.extend(split_nodes)
     return new_nodes
 
-
 def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
     new_nodes = []
     for old_node in old_nodes:
@@ -78,8 +78,7 @@ def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
         new_nodes.extend(split_nodes)
     return new_nodes
 
-
-def text_to_textnodes(text):
+def text_to_textnodes(text: str) -> list[TextNode]:
     new_textnode = TextNode(text, TextType.TEXT)
     split_bold = split_nodes_delimiter([new_textnode], "**", TextType.BOLD)
     split_italic = split_nodes_delimiter(split_bold, "_", TextType.ITALIC)
