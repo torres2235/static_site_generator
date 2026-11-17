@@ -43,3 +43,6 @@ def markdown_to_blocks(markdown: str) -> list[str]:
         block = block.strip()
         filtered_blocks.append(block)
     return filtered_blocks
+
+def text_to_children(text):
+    pass
